@@ -1,36 +1,86 @@
-import React from "react";
+
+"use client"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const RegisterPage = () => {
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const router = useRouter();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      const data = await response.json();
+      setSuccess(data.message);
+      router.push("/");
+      setFormData({username:"", email: "", password: ""})
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-white px-4">
       <div className="max-w-md w-full bg-gray-50 p-8 rounded-xl shadow-md">
         <h2 className="text-3xl font-bold text-green-700 text-center mb-6">Create Account</h2>
-        
-        <form className="space-y-5">
+
+        {error && <p className="text-red-500 text-center">{error}</p>}
+        {success && <p className="text-green-500 text-center">{success}</p>}
+
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Full Name</label>
+            <label className="block text-sm font-medium text-black">Full Name</label>
             <input
               type="text"
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="w-full mt-1 px-4 py-2 text-black border rounded-md focus:ring-2 focus:ring-green-500"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-black">Email</label>
             <input
               type="email"
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full mt-1 px-4 py-2 border text-black rounded-md focus:ring-2 focus:ring-green-500"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <label className="block text-sm font-medium text-black">Password</label>
             <input
               type="password"
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full mt-1 px-4 py-2 text-black border rounded-md focus:ring-2 focus:ring-green-500"
               required
             />
           </div>

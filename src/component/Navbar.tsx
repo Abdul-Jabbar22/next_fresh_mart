@@ -32,11 +32,11 @@ export default function Navbar() {
             <div id="header-logo">
               <img
                 src="/logo.png"
-                alt="Fresh Basket Logo"
+                alt="Fresh ket Logo"
                 className="h-10 w-auto"
               />
             </div>
-            <span className="hidden sm:inline">Fresh Basket</span>
+            <span className="hidden sm:inline">Fresh Mart</span>
           </Link>
 
           {/* Mobile cart - appears right after logo on mobile */}

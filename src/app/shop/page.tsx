@@ -20,15 +20,32 @@ export default async function Shop() {
 
   return (
     <div className="p-4 sm:p-6">
-      <Filter/>
-      <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-black">
-      All Fruits
-      </h2>
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+    <div className="flex flex-col lg:flex-row gap-6">
+      
+      {/* Sidebar Filter */}
+      <div className="w-full lg:w-1/4">
+        <Filter />
       </div>
+  
+      {/* Product Listing */}
+      <div className="w-full lg:w-3/4">
+        <h2 className="text-xl sm:text-2xl font-semibold text-black mb-4">
+          All Fruits
+        </h2>
+  
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      </div>
+  
     </div>
+  </div>
+  
+
+  
+  
+  
   );
 }
