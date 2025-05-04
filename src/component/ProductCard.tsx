@@ -1,4 +1,3 @@
-// components/ProductCard.tsx
 "use client";
 
 import { useCart } from "@/app/cart/context/CartContext";
@@ -12,7 +11,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
 
   return (
-    <div className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+<div className="transform scale-95 border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+
+
       <img 
         src={product.image} 
         alt={product.name}

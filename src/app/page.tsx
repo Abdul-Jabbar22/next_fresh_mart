@@ -1,3 +1,4 @@
+import HeroSectio from "@/component/HeroSectio";
 import HeroSlider from "@/component/HeroSlider";
 import ProductCard from "@/component/ProductCard";
 
@@ -32,12 +33,8 @@ export default async function Home() {
   return (
     <div className="p-6 text-center">
       <HeroSlider />
-      <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black">
-        Fresh Fruits Delivered to Your Doorstep
-      </h1>
-      <p className="mt-4 text-gray-600">
-        Buy the freshest fruits and vegetables online.
-      </p>
+     
+      
       <h6 className="text-4xl md:text-5xl text-left font-bold mb-6 text-black">
         Featured Fruits
       </h6>
@@ -47,6 +44,7 @@ export default async function Home() {
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
+      <HeroSectio/>
     </div>
   );
 }
