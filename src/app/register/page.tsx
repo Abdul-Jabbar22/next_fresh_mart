@@ -20,7 +20,7 @@ const RegisterPage = () => {
     setSuccess("");
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/register`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL }/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
