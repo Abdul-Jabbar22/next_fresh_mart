@@ -56,7 +56,7 @@ const RegisterPage = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 text-black border rounded-md focus:ring-2 focus:ring-green-500"
+               className="w-full mt-1 px-4 py-2 bg-gray-200 text-black  rounded-md "
               required
             />
           </div>
@@ -67,8 +67,7 @@ const RegisterPage = () => {
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border text-black rounded-md focus:ring-2 focus:ring-green-500"
+              onChange={handleChange}   className="w-full mt-1 px-4 py-2 bg-gray-200 text-black  rounded-md "
               required
             />
           </div>
@@ -80,7 +79,7 @@ const RegisterPage = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 text-black border rounded-md focus:ring-2 focus:ring-green-500"
+               className="w-full mt-1 px-4 py-2 bg-gray-200 text-black  rounded-md "
               required
             />
           </div>

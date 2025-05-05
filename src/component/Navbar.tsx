@@ -2,9 +2,10 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, X, Search } from "lucide-react";
+import { ShoppingCart, Menu, X, Search, User, UserCircle, User2 } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/app/cart/context/CartContext";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,6 +70,13 @@ export default function Navbar() {
           <Link href="/shop" className="hover:underline">
             Shop
           </Link>
+      
+          <Link href="/login" className="flex hover:underline">
+         
+   
+          <User2 className="w-6 h-6 text-white" />
+
+       </Link>
 
           <Link href="/cart" className="relative" aria-label="Cart">
             <ShoppingCart className="w-6 h-6" />
@@ -90,6 +98,11 @@ export default function Navbar() {
             >
               Shop
             </Link>
+            <Link href="/login" className="hover:underline">
+         
+            <User2 className="w-6 h-6 text-white" />
+          </Link>
+        
           </div>
         )}
       </div>
