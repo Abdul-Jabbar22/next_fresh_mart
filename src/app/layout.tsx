@@ -2,7 +2,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import Navbar from "@/component/Navbar";
 import Footer from "@/component/Footer";
-import { CartProvider } from "./cart/context/CartContext";
+import { CartProvider } from "./context/CartContext";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

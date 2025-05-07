@@ -1,11 +1,17 @@
-"use client"
+"use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const RegisterPage = () => {
-  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    role: " ", // default role
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -16,38 +22,33 @@ const RegisterPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/register`, {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Registration failed");
+        throw new Error(data.message || "Registration failed");
       }
 
-      const data = await response.json();
-      
-      // Success toast
       toast.success(data.message || "Registration successful!", {
-        duration: 4000,
+        duration: 3000,
         position: "top-right",
       });
-      
-      // Redirect after toast is visible
+''
       setTimeout(() => {
-        router.push("/");
+        router.push("/login");
       }, 1500);
-      
-      setFormData({ username: "", email: "", password: "" });
-      
+
+      setFormData({ username: "", email: "", password: "" , role :""});
     } catch (err: any) {
-      // Error toast
-      toast.error(err.message || "An error occurred during registration", {
-        duration: 5000,
+      toast.error(err.message || "Something went wrong!", {
+        duration: 4000,
         position: "top-right",
       });
     } finally {
@@ -57,8 +58,7 @@ const RegisterPage = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-white px-4">
-      {/* Toast Container - should be at root level */}
-      <Toaster 
+      <Toaster
         toastOptions={{
           className: "font-medium",
           success: {
@@ -75,43 +75,62 @@ const RegisterPage = () => {
           },
         }}
       />
-      
+
       <div className="max-w-md w-full bg-gray-50 p-8 rounded-xl shadow-md">
-        <h2 className="text-3xl font-bold text-green-700 text-center mb-6">Create Account</h2>
+        <h2 className="text-3xl font-bold text-green-700 text-center mb-6">
+          Create Account
+        </h2>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
-          {/* Your form inputs remain the same */}
           <div>
-            <label className="block text-sm font-medium text-black">Full Name</label>
+            <label className="block text-sm font-medium text-black">Role</label>
+            <select
+              name="role"
+              value={formData.role || "user"}
+              className="w-full mt-1 px-4 py-2 bg-gray-200 text-black rounded-md"
+              required
+            >
+              <option value="" disabled>
+                Select role
+              </option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-black">
+              Full Name
+            </label>
             <input
               type="text"
               name="username"
               value={formData.username}
-              onChange={handleChange}
               className="w-full mt-1 px-4 py-2 bg-gray-200 text-black rounded-md"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-black">Email</label>
+            <label className="block text-sm font-medium text-black">
+              Email
+            </label>
             <input
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
               className="w-full mt-1 px-4 py-2 bg-gray-200 text-black rounded-md"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-black">Password</label>
+            <label className="block text-sm font-medium text-black">
+              Password
+            </label>
             <input
               type="password"
               name="password"
               value={formData.password}
-              onChange={handleChange}
               className="w-full mt-1 px-4 py-2 bg-gray-200 text-black rounded-md"
               required
             />
@@ -120,9 +139,7 @@ const RegisterPage = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full bg-green-600 text-white py-2 rounded-md font-semibold hover:bg-green-700 transition ${
-              isSubmitting ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            className="w-full bg-green-600 text-white py-2 rounded-md font-semibold hover:bg-green-700 transition"
           >
             {isSubmitting ? "Registering..." : "Register"}
           </button>

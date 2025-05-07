@@ -8,6 +8,10 @@ type Product = {
   category: string;
   price: number;
   image: string;
+  description: string;
+  stock: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
 async function getProducts(): Promise<Product[]> {
@@ -38,12 +42,15 @@ export default async function Home() {
       <h6 className="text-4xl md:text-5xl text-left font-bold mb-6 text-black">
         Featured Fruits
       </h6>
-      {/* Products Grid */}
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
-      </div>
+       {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
+           
+                {products.map((product) => (
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                  />
+                ))}
+              </div> */}
       <HeroSectio/>
     </div>
   );

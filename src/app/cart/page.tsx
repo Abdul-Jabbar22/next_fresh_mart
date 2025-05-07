@@ -1,101 +1,69 @@
-// app/cart/page.tsx
+// /app/cart/page.tsx
 "use client";
 
-import Link from "next/link";
-import { useCart } from "./context/CartContext";
-import { Delete, Trash } from "lucide-react";
+import { useCart } from "@/app/context/CartContext";
+import Link from "next/link"; 
+
 
 export default function CartPage() {
-  const { cartItems, removeFromCart, updateQuantity, cartItemCount } =
-    useCart();
+  const { cart, removeFromCart } = useCart();
 
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Your Cart ({cartItemCount})</h1>
+    <div className="max-w-3xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6 text-green-700">Your Cart</h1>
 
-      {cartItems.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Your cart is empty</p>
-          <Link
-            href="/shop"
-            className="text-green-600 hover:underline mt-4 inline-block"
-          >
-            Continue Shopping
-          </Link>
-        </div>
+      {cart.length === 0 ? (
+        <p className="text-gray-600">Your cart is empty.</p>
       ) : (
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            {cartItems.map((item) => (
-              <div
+        <>
+          <ul className="space-y-4">
+            {cart.map((item) => (
+              <li
                 key={item._id}
-                className="border-b py-4 flex justify-between"
+                className="flex items-center justify-between bg-white p-4 shadow-md rounded-md"
               >
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-contain rounded-md"
+                    className="w-16 h-16 object-contain rounded"
                   />
                   <div>
-                    <h3 className="font-semibold text-black">{item.name}</h3>
-                    <p className="text-gray-600">Rs{item.price.toFixed(2)}</p>
-                    <button
-                      onClick={() => removeFromCart(item._id)}
-                      className="text-red-500 text-sm mt-1"
-                      aria-label={`Remove ${item.name} from cart`}
-                    >
-                      <Trash />
-                    </button>
+                    <h2 className="font-semibold text-lg text-black">
+                      {item.name}
+                    </h2>
+                    <h6 className="font-semibold text-sm text-gray-500">
+                      {item.description}
+                    </h6>
+                    <p className="text-gray-600">Rs {item.price.toFixed(2)}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                    className="px-2 bg-gray-200 rounded text-black"
-                    aria-label="Decrease quantity"
-                  >
-                    -
-                  </button>
-                  <span className="text-black">{item.quantity}</span>
-                  <button
-                    onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                    className="px-2 bg-gray-200 rounded text-black"
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
+                <button
+                  onClick={() => removeFromCart(item._id)}
+                  className="text-red-500 hover:underline text-sm"
+                >
+                  Remove
+                </button>
+              </li>
             ))}
-          </div>
-          <div className="bg-gray-50 p-6 rounded-lg h-fit">
-            <h2 className="text-xl font-bold mb-4 text-black">Order Summary</h2>
-            <div className="flex justify-between mb-2">
-              <span className="text-gray-500">Subtotal</span>
-              <span className="text-gray-500">Rs{totalPrice.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span className="text-gray-500">Shipping</span>
-              <span className="text-gray-500">Free</span>
-            </div>
-            <div className="border-t pt-4 mt-4 flex justify-between font-bold">
-              <span className="text-black">Total</span>
-              <span className="text-black">Rs{totalPrice.toFixed(2)}</span>
-            </div>
-            <button
-              className="w-full bg-green-500 text-white py-3 rounded-md mt-6 hover:bg-green-600"
-              aria-label="Proceed to checkout"
-            >
-              Checkout
+          </ul>
+
+          <div className="mt-6 text-right">
+            <p className="text-xl font-semibold text-black">
+              Total: Rs {total.toFixed(2)}
+            </p>
+            <button className="mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+              <Link
+                href="/checkout"
+                className="inline-block mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+              >
+                Checkout
+              </Link>
             </button>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
