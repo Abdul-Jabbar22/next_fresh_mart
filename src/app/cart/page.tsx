@@ -2,8 +2,7 @@
 "use client";
 
 import { useCart } from "@/app/context/CartContext";
-import Link from "next/link"; 
-
+import Link from "next/link";
 
 export default function CartPage() {
   const { cart, removeFromCart } = useCart();
@@ -15,7 +14,13 @@ export default function CartPage() {
       <h1 className="text-3xl font-bold mb-6 text-green-700">Your Cart</h1>
 
       {cart.length === 0 ? (
-        <p className="text-gray-600">Your cart is empty.</p>
+        <div className="flex-col text-gray-600">
+          <p> Your cart is empty.</p>
+
+          <button className="  text-green-500  hover:text-green-700 hover:underline">
+            <Link href="/shop">Continue Shopping</Link>
+          </button>
+        </div>
       ) : (
         <>
           <ul className="space-y-4">
@@ -55,12 +60,7 @@ export default function CartPage() {
               Total: Rs {total.toFixed(2)}
             </p>
             <button className="mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
-              <Link
-                href="/checkout"
-                className="inline-block mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
-              >
-                Checkout
-              </Link>
+              <Link href="/checkout">Checkout</Link>
             </button>
           </div>
         </>

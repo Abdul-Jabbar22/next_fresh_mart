@@ -5,7 +5,7 @@ export interface UserType {
   email: string;
   role: "user" | "admin";
 }
-export type Product = {
+export type ProductType = {
   _id: string;
   name: string;
   category: string;
@@ -15,6 +15,11 @@ export type Product = {
   stock: number;
   createdAt: string;
   updatedAt: string;
+  total: number;
+  page:number;
+  limit:number;
+  skip:number;
+  totalPages:number
 };
 export type CartProduct = {
   productId: string;
@@ -26,7 +31,6 @@ export type CartItem = {
   quantity: number;
   image: string | Blob | undefined;
   name: string | undefined;
-  description: ReactNode;
   _id?: string;
   userId: string;
   products: CartProduct[];

@@ -8,7 +8,6 @@ export interface IOrder extends Document {
     quantity: number;
   }[];
   total: number;
-  status: "pending" | "processing" | "shipped" | "delivered";
 }
 
 const orderSchema = new Schema<IOrder>(
@@ -21,7 +20,6 @@ const orderSchema = new Schema<IOrder>(
       },
     ],
     total: { type: Number, required: true },
-    status: { type: String, enum: ["pending", "processing", "shipped", "delivered"], default: "pending" },
   },
   { timestamps: true }
 );

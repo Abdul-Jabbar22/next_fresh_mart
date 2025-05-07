@@ -1,35 +1,33 @@
-// /app/api/admin/orders/route.ts
 import { NextRequest, NextResponse } from "next/server";
-
-import { verifyTokenAndAdmin } from "@/lib/auth";
 import connectDB from "@/lib/db";
 import Order from "@/lib/models/Order";
 
-// GET all orders (Admin)
+// GET all orders (No Auth)
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const isAdmin = await verifyTokenAndAdmin(req);
-    if (isAdmin === false) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
     const orders = await Order.find();
     return NextResponse.json(orders);
   } catch (error) {
+    console.error("Error fetching orders:", error);
     return NextResponse.json({ error: "Failed to fetch orders" }, { status: 500 });
   }
 }
 
-// UPDATE order status (Admin)
+// UPDATE order status (Still without auth for now)
 export async function PUT(req: NextRequest) {
   try {
     await connectDB();
-    const admin = await verifyTokenAndAdmin(req);
-    if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
     const { orderId, status } = await req.json();
+
     const updatedOrder = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+    if (!updatedOrder) {
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    }
+
     return NextResponse.json(updatedOrder);
   } catch (error) {
+    console.error("Error updating order:", error);
     return NextResponse.json({ error: "Failed to update order status" }, { status: 500 });
   }
 }
