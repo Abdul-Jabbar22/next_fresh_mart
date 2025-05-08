@@ -1,8 +1,7 @@
-// /models/Order.ts
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IOrder extends Document {
-  userId: string;
+  userId: Types.ObjectId; // Reference to User model
   products: {
     productId: string;
     quantity: number;
@@ -12,7 +11,7 @@ export interface IOrder extends Document {
 
 const orderSchema = new Schema<IOrder>(
   {
-    userId: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     products: [
       {
         productId: { type: String, required: true },

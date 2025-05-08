@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, X, Search, User2 } from "lucide-react";
+import { ShoppingCart, Menu, X, Search, User2, Store } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/app/context/CartContext";
 
@@ -12,16 +12,15 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       // Call your logout API
-      await fetch('http://localhost:3000/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
+      await fetch("http://localhost:3000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
       });
-      
-      
+
       // Clear client-side state and redirect
-      window.location.href = '/login';
+      window.location.href = "/login";
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -38,7 +37,11 @@ export default function Navbar() {
           </button>
 
           <Link href="/" className="flex items-center gap-2 font-bold text-2xl">
-            <img src="/logo.png" alt="Fresh Mart Logo" className="h-10 w-auto" />
+            <img
+              src="/logo.png"
+              alt="Fresh Mart Logo"
+              className="h-10 w-auto"
+            />
             <span className="hidden sm:inline">Fresh Mart</span>
           </Link>
 
@@ -66,7 +69,14 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/shop">Shop</Link>
+          <div className="relative group inline-block">
+            <Link href="/shop">
+              <Store className="hover:text-green-300" />
+            </Link>
+            <span className="absolute top-full left-1/2 mt-1 px-2 py-1 text-xs text-gray-500 bg-white rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+    Go to Shop
+  </span>
+          </div>
           <div className="relative group">
             <button className="flex items-center hover:underline">
               <User2 />
@@ -107,12 +117,17 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden w-full flex flex-col items-start gap-4 pt-4 border-t border-green-700">
-            <Link href="/shop" onClick={() => setIsMenuOpen(false)}>
-              Shop
+            <div className="relative group inline-block">
+            <Link href="/shop">
+              <Store className="hover:text-green-300" />
             </Link>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-xs text-white bg-green-500 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+           Shop Now
+            </span>
+          </div>
+
             <Link href="/login">Login</Link>
             <Link href="/register">Register</Link>
-           
           </div>
         )}
       </div>

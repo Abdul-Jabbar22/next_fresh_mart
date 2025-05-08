@@ -59,14 +59,14 @@ const HeroSlider = () => {
                 className="absolute left-3 top-1/2 -translate-y-1/2 z-20p-2 rounded-full hover:bg-white-100 transition"
                 aria-label="Previous"
               >
-                <CircleArrowLeft className="w-5 h-5 cursor-pointer" />
+                <CircleArrowLeft className="w-10 h-10  transition  hover:text-green-300  cursor-pointer   transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 " />
               </button>
               <button
                 onClick={() => instanceRef.current?.next()}
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full hover:bg-white-100 transition"
                 aria-label="Next"
               >
-                <CircleArrowRight className="w-5 h-5 cursor-pointer" />
+                <CircleArrowRight className="w-10 h-10  transition  hover:text-green-300  cursor-pointer   transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 " />
               </button>
             </div>
           </div>
