@@ -1,4 +1,4 @@
-import { OrdersTrendChart,ProductDistributionChart, RevenueChart, StackedRevenueChart } from "@/component/Charts";
+import { StackedRevenueChart } from "@/component/Charts";
 
 
 export default function Dashboard() {

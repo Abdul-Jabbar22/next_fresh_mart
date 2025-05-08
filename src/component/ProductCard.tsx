@@ -1,15 +1,20 @@
-// /components/ProductCard.tsx
 "use client";
 
 import { useCart } from "@/app/context/CartContext";
-import { Product } from "@/types";
+import { ProductType } from "@/types";
+import toast from "react-hot-toast";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductType;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast.success(`${product.name} added to cart!`);
+  };
 
   return (
     <div className="transform scale-95 border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
@@ -22,7 +27,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h3 className="font-semibold text-lg text-black">{product.name}</h3>
         <p className="text-gray-600">Rs{product?.price}</p>
         <button
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
           className="mt-4 w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors"
           aria-label={`Add ${product.name} to cart`}
         >

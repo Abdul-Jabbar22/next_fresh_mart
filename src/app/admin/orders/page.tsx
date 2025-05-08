@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
+import Loader from "@/component/Loader";
 
 interface Order {
   _id: string;
@@ -56,7 +57,7 @@ export default function AdminOrdersPage() {
     fetchOrders();
   }, []);
 
-  if (loading) return <p className="p-4">Loading orders...</p>;
+  if (loading) return <Loader/>
   if (error) return <p className="text-red-500 p-4">Error: {error}</p>;
 
   return (
