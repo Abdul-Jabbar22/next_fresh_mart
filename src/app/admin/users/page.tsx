@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Loader from "@/component/Loader";
 
 interface User {
   _id: string;
@@ -15,39 +16,35 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get("http://localhost:3000/api/admin/users");
-  
-        // Log the full response to inspect it
-        console.log("Users API response:", res.data);
-  
-        // If response is an object, extract the array
-        if (Array.isArray(res.data)) {
-          setUsers(res.data);
-        } else if (Array.isArray(res.data.users)) {
-          setUsers(res.data.users);
-        } else {
-          console.error("Unexpected response format:", res.data);
-          setUsers([]); // prevent crashing
-        }
-      } catch (error) {
-        console.error("Failed to fetch users", error);
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/admin/users");
+      console.log("Users API response:", res.data);
+      
+      if (Array.isArray(res.data)) {
+        setUsers(res.data);
+      } else if (Array.isArray(res.data.users)) {
+        setUsers(res.data.users);
+      } else {
+        console.error("Unexpected response format:", res.data);
         setUsers([]);
-      } finally {
-        setLoading(false);
       }
-    };
-  
-    fetchUsers();
-  }, []);
+    } catch (error) {
+      console.error("Failed to fetch users", error);
+      setUsers([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUsers();
+}, []);
   
   if (loading) {
-    return <div className="p-6 text-gray-500">Loading users...</div>;
+    return <Loader/>
   }
 
-//   console.log("users",users.name);
   
 
   return (
@@ -58,13 +55,13 @@ export default function AdminUsersPage() {
         <p className="text-gray-500">No users found.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full table-auto border border-gray-200">
-            <thead className="bg-gray-100">
+          <table className="min-w-full table-auto border bg-green">
+            <thead className="bg-green-600">
               <tr>
-                <th className="text-left px-4 py-2 border">#</th>
-                <th className="text-left px-4 py-2 border">Name</th>
-                <th className="text-left px-4 py-2 border">Email</th>
-                <th className="text-left px-4 py-2 border">Role</th>
+                <th className="text-left px-4 py-2 text-white border">#</th>
+                <th className="text-left px-4 py-2 text-white border">Name</th>
+                <th className="text-left px-4 py-2 text-white  border">Email</th>
+                <th className="text-left px-4 py-2 text-white border">Role</th>
               </tr>
             </thead>
             <tbody>

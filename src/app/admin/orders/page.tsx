@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
 import Loader from "@/component/Loader";
 
 interface Order {
   _id: string;
-  customerName: string;
+  userName: string;
   email: string;
   total: number;
   status: string;
@@ -35,6 +35,9 @@ export default function AdminOrdersPage() {
       setLoading(false);
     }
   };
+
+  console.log("orders>>>",orders);
+  
 
   const deleteOrder = async (orderId: string) => {
     if (!confirm("Are you sure you want to delete this order?")) return;
@@ -82,7 +85,7 @@ export default function AdminOrdersPage() {
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id} className="border-b">
-                  <td className="px-4 py-2 text-gray-500">{order.customerName}</td>
+                  <td className="px-4 py-2 text-gray-500">{order.userName}</td>
                   <td className="px-4 py-2  text-gray-500">{order.email}</td>
                   <td className="px-4 py-2  text-gray-500">Rs {order.total}</td>
                   <td className="px-4 py-2  text-gray-500">{order.status}</td>

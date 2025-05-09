@@ -19,7 +19,7 @@ export function AdminSidebar() {
     { name: "Dashboard", href: "/admin", icon: <LayoutDashboard className="h-5 w-5" /> },
     { name: "Products", href: "/admin/products", icon: <Package className="h-5 w-5" /> },
     { name: "Orders", href: "/admin/orders", icon: <ShoppingCart className="h-5 w-5" /> },
-    { name: "Customers", href: "/admin/customers", icon: <Users className="h-5 w-5" /> },
+    { name: "Users", href: "/admin/users", icon: <Users className="h-5 w-5" /> },
     { name: "Messages", href: "/admin/messages", icon: <MessageSquare className="h-5 w-5" /> },
     { name: "Analytics", href: "/admin/analytics", icon: <BarChart2 className="h-5 w-5" /> },
     { name: "Settings", href: "/admin/settings", icon: <Settings className="h-5 w-5" /> }

@@ -6,6 +6,7 @@ export interface UserType {
   role: "user" | "admin";
 }
 export type ProductType = {
+  quantity: number;
   _id: string;
   name: string;
   category: string;

@@ -1,8 +1,8 @@
 // /app/api/products/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { verifyTokenAndAdmin } from "@/lib/auth";
 import Product from "@/lib/models/Product";
 import connectDB from "@/lib/db";
+import { ProductType } from "@/types";
 
 export async function GET() {
   try {
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const body: Product = await req.json();
+    const body: ProductType = await req.json();
     console.log("Product body:", body);
 
     if (!body.name || !body.price || !body.image) {

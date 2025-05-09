@@ -10,8 +10,8 @@ import { User } from "@/lib/models/User";
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const admin = await verifyTokenAndAdmin(req);
-    if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // const admin = await verifyTokenAndAdmin(req);
+    // if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const users = await User.find();
     return NextResponse.json(users);
